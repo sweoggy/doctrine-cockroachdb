@@ -2,9 +2,12 @@
 
 namespace LapayGroup\DoctrineCockroach\Platforms;
 
+use Doctrine\DBAL\Connection;
 use Doctrine\DBAL\Platforms\PostgreSQLPlatform;
 use Doctrine\DBAL\Schema\ForeignKeyConstraint;
+use Doctrine\DBAL\Schema\PostgreSQLSchemaManager;
 use Doctrine\DBAL\Types\Types;
+use LapayGroup\DoctrineCockroach\Schema\CockroachSchemaManager;
 
 class CockroachPlatform extends PostgreSQLPlatform
 {
@@ -47,14 +50,15 @@ class CockroachPlatform extends PostgreSQLPlatform
         $this->doctrineTypeMapping = array_merge($this->doctrineTypeMapping ?? [], [
             '_text' => Types::STRING,
             '_int2' => Types::SMALLINT,
-            '_int8' => Types::INTEGER,
+            '_int4' => Types::INTEGER,
+            '_int8' => Types::BIGINT,
             'int2vector' => Types::SIMPLE_ARRAY,
         ]);
     }
 
     public function getIntegerTypeDeclarationSQL(array $column): string
     {
-        if (! empty($column['autoincrement'])) {
+        if (!empty($column['autoincrement'])) {
             return 'SERIAL';
         }
 
@@ -79,5 +83,10 @@ class CockroachPlatform extends PostgreSQLPlatform
         }
 
         return $query;
+    }
+
+    public function createSchemaManager(Connection $connection): CockroachSchemaManager
+    {
+        return new CockroachSchemaManager($connection, $this);
     }
 }

@@ -23,6 +23,8 @@ doctrine:
         dbname: database_name
         platform_service: LapayGroup\DoctrineCockroach\Platforms\CockroachPlatform
         driver_class: LapayGroup\DoctrineCockroach\Driver\CockroachDriver
+        # Only needed when using DBAL < 4.0 as DoctrineBundle defaults to the legacy factory 
+        schema_manager_factory: doctrine.dbal.default_schema_manager_factory
         
     # Serverless example
     dbal:
@@ -33,6 +35,8 @@ doctrine:
         dbname: lapaygroup-test-869.defaultdb
         platform_service: LapayGroup\DoctrineCockroach\Platforms\CockroachPlatform
         driver_class: LapayGroup\DoctrineCockroach\Driver\CockroachDriver
+        # Only needed when using DBAL < 4.0 as DoctrineBundle defaults to the legacy factory
+        schema_manager_factory: doctrine.dbal.default_schema_manager_factory
 ```
 
 Connection url style:
@@ -43,12 +47,14 @@ doctrine:
         url: //root:@localhost:26257/database_name
         platform_service: LapayGroup\DoctrineCockroach\Platforms\CockroachPlatform
         driver_class: LapayGroup\DoctrineCockroach\Driver\CockroachDriver
+        schema_manager_factory: doctrine.dbal.default_schema_manager_factory
         
     # Serverless example    
     dbal:
         url: '//wildtuna:password@free-tier7.aws-eu-west-1.cockroachlabs.cloud:26257/lapaygroup-test-869.defaultdb'
         platform_service: LapayGroup\DoctrineCockroach\Platforms\CockroachPlatform
-        driver_class: LapayGroup\DoctrineCockroach\Driver\CockroachDriver     
+        driver_class: LapayGroup\DoctrineCockroach\Driver\CockroachDriver
+        schema_manager_factory: doctrine.dbal.default_schema_manager_factory
 ```
 
 ```yaml
