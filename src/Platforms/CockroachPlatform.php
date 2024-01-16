@@ -2,10 +2,11 @@
 
 namespace LapayGroup\DoctrineCockroach\Platforms;
 
-use Doctrine\DBAL\Platforms\PostgreSQL100Platform;
+use Doctrine\DBAL\Platforms\PostgreSQLPlatform;
 use Doctrine\DBAL\Schema\ForeignKeyConstraint;
+use Doctrine\DBAL\Types\Types;
 
-class CockroachPlatform extends PostgreSQL100Platform
+class CockroachPlatform extends PostgreSQLPlatform
 {
     public function getListNamespacesSQL(): string
     {
@@ -43,10 +44,11 @@ class CockroachPlatform extends PostgreSQL100Platform
     {
         parent::initializeDoctrineTypeMappings();
 
-        $this->doctrineTypeMapping = array_merge($this->doctrineTypeMapping, [
-            '_text' => 'string',
-            '_int8' => 'integer',
-            'int2vector' => 'array',
+        $this->doctrineTypeMapping = array_merge($this->doctrineTypeMapping ?? [], [
+            '_text' => Types::STRING,
+            '_int2' => Types::SMALLINT,
+            '_int8' => Types::INTEGER,
+            'int2vector' => Types::SIMPLE_ARRAY,
         ]);
     }
 
@@ -68,7 +70,7 @@ class CockroachPlatform extends PostgreSQL100Platform
             $query .= ' MATCH ' . $foreignKey->getOption('match');
         }
 
-        if ($this->supportsForeignKeyConstraints() && $foreignKey->hasOption('onUpdate')) {
+        if ($foreignKey->hasOption('onUpdate')) {
             $query .= ' ON UPDATE ' . $this->getForeignKeyReferentialActionSQL($foreignKey->getOption('onUpdate'));
         }
 

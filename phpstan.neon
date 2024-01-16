@@ -1,0 +1,6 @@
+includes:
+	- phpstan-baseline.php
+
+parameters:
+    scanDirectories:
+        - vendor

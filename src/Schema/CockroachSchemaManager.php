@@ -2,10 +2,10 @@
 
 namespace LapayGroup\DoctrineCockroach\Schema;
 
-use Doctrine\DBAL\Schema\PostgreSqlSchemaManager;
+use Doctrine\DBAL\Schema\PostgreSQLSchemaManager;
 use Doctrine\DBAL\Schema\Sequence;
 
-class CockroachSchemaManager extends PostgreSqlSchemaManager
+class CockroachSchemaManager extends PostgreSQLSchemaManager
 {
     protected function _getPortableSequenceDefinition($sequence): Sequence
     {
@@ -23,7 +23,7 @@ class CockroachSchemaManager extends PostgreSqlSchemaManager
             $data = $this->_conn->fetchAssociative('SHOW CREATE ' . $this->_platform->quoteIdentifier($sequenceName));
             if (!empty($data['create_statement'])) {
                 $matches = [];
-                preg_match_all('/ -?\d+/', $data['create_statement'],  $matches);
+                preg_match_all('/ -?\d+/', $data['create_statement'], $matches);
                 if (!empty($matches[0])) {
                     $matches = array_map('trim', $matches[0]);
                     $sequence['min_value'] = $matches[0];

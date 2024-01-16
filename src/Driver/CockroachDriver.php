@@ -5,57 +5,64 @@ namespace LapayGroup\DoctrineCockroach\Driver;
 use Doctrine\DBAL;
 use Doctrine\DBAL\Driver\PDO\Connection;
 use Doctrine\DBAL\Driver\AbstractPostgreSQLDriver;
-use Doctrine\DBAL\Exception;
+use Doctrine\DBAL\Driver\PDO\Exception;
+use Doctrine\DBAL\Platforms\AbstractPlatform;
 use Doctrine\Deprecations\Deprecation;
 use LapayGroup\DoctrineCockroach\Platforms\CockroachPlatform;
 use LapayGroup\DoctrineCockroach\Schema\CockroachSchemaManager;
 use PDO;
 use PDOException;
-
+use SensitiveParameter;
 
 class CockroachDriver extends AbstractPostgreSQLDriver
 {
-    public function connect(array $params, $username = null, $password = null, array $driverOptions = []): Connection
-    {
+    public function connect(
+        #[SensitiveParameter]
+        array $params
+    ): Connection {
+        $driverOptions = $params['driverOptions'] ?? [];
+
         try {
-            $pdo = new Connection(
-                $this->_constructPdoDsn($params),
-                $username,
-                $password,
-                $driverOptions
+            $pdo = new PDO(
+                $this->constructPdoDsn($params),
+                $params['user'] ?? '',
+                $params['password'] ?? '',
+                $driverOptions,
             );
-
-            if (
-                defined('PDO::PGSQL_ATTR_DISABLE_PREPARES')
-                && (! isset($driverOptions[PDO::PGSQL_ATTR_DISABLE_PREPARES])
-                    || $driverOptions[PDO::PGSQL_ATTR_DISABLE_PREPARES] === true
-                )
-            ) {
-                $pdo->setAttribute(PDO::PGSQL_ATTR_DISABLE_PREPARES, true);
-            }
-
-            /* defining client_encoding via SET NAMES to avoid inconsistent DSN support
-             * - the 'client_encoding' connection param only works with postgres >= 9.1
-             * - passing client_encoding via the 'options' param breaks pgbouncer support
-             */
-            if (isset($params['charset'])) {
-                $pdo->exec('SET NAMES \'' . $params['charset'] . '\'');
-            }
-
-            return $pdo;
         } catch (PDOException $e) {
-            throw Exception::driverException($this, $e);
+            throw Exception::new($e);
         }
+
+        if (
+            defined('PDO::PGSQL_ATTR_DISABLE_PREPARES')
+            && (
+                ! isset($driverOptions[PDO::PGSQL_ATTR_DISABLE_PREPARES])
+                || $driverOptions[PDO::PGSQL_ATTR_DISABLE_PREPARES] === true
+            )
+        ) {
+            $pdo->setAttribute(PDO::PGSQL_ATTR_DISABLE_PREPARES, true);
+        }
+
+        $connection = new Connection($pdo);
+
+        /* defining client_encoding via SET NAMES to avoid inconsistent DSN support
+         * - passing client_encoding via the 'options' param breaks pgbouncer support
+         */
+        if (isset($params['charset'])) {
+            $connection->exec('SET NAMES \'' . $params['charset'] . '\'');
+        }
+
+        return $connection;
     }
 
     /**
      * Constructs the Postgres PDO DSN.
      *
-     * @param array $params
+     * @param mixed[] $params
      *
      * @return string The DSN.
      */
-    private function _constructPdoDsn(array $params): string
+    private function constructPdoDsn(array $params): string
     {
         $dsn = 'pgsql:';
 
@@ -132,8 +139,10 @@ class CockroachDriver extends AbstractPostgreSQLDriver
     }
 
 
-    public function getSchemaManager(DBAL\Connection $conn): CockroachSchemaManager
+    public function getSchemaManager(DBAL\Connection $conn, AbstractPlatform $platform): CockroachSchemaManager
     {
-        return new CockroachSchemaManager($conn);
+        assert($platform instanceof CockroachPlatform);
+
+        return new CockroachSchemaManager($conn, $platform);
     }
 }

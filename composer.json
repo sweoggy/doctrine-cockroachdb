@@ -17,12 +17,16 @@
     {
       "name": "Nikolay Lapay",
       "email": "nl@wildtuna.pro"
+    },
+    {
+      "name": "Oscar Reimer",
+      "email": "oscarreimer93@hotmail.com"
     }
   ],
   "require": {
-    "php": "^7.2 || ^8.0",
+    "php": "^7.4 || ^8.0",
     "ext-pdo": "*",
-    "doctrine/dbal": "^2.10 || ^3.0"
+    "doctrine/dbal": "^2.13 || ^3.4"
   },
   "autoload": {
     "psr-0": {
@@ -31,5 +35,14 @@
     "psr-4": {
       "LapayGroup\\DoctrineCockroach\\": "src/"
     }
+  },
+  "require-dev": {
+    "phpstan/phpstan": "^1.10",
+    "friendsofphp/php-cs-fixer": "^3.47"
+  },
+  "scripts": {
+    "php-cs-fixer": "vendor/bin/php-cs-fixer fix src --diff",
+    "phpstan": "vendor/bin/phpstan analyse src --level=max --configuration=phpstan.neon",
+    "phpstan-baseline": "vendor/bin/phpstan analyse src --level=max --generate-baseline phpstan-baseline.php"
   }
 }
