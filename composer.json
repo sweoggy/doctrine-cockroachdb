@@ -1,7 +1,7 @@
 {
   "name": "sweoggy/doctrine-cockroachdb",
   "type": "library",
-  "description": "Doctrine CockroachDB Driver (Symfony supports)",
+  "description": "Doctrine CockroachDB Driver (With Symfony support)",
   "keywords": ["pdo_pgsql","pdo","cockroach","cockroachdb","doctrine","doctrine-cockroachdb"],
   "license": "MIT",
   "minimum-stability": "stable",
