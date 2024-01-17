@@ -1,6 +1,6 @@
 <?php
 
-namespace LapayGroup\DoctrineCockroach\Schema;
+namespace SweOggy\DoctrineCockroach\Schema;
 
 use Doctrine\DBAL\Result;
 use Doctrine\DBAL\Schema\Identifier;

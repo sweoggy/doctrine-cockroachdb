@@ -1,10 +1,9 @@
-<a href="https://lapaygroup.ru/"><img align="left" width="200" src="https://lapaygroup.ru/img/lapaygroup.svg"></a>
 <a href="https://www.cockroachlabs.com/"><img align="right" width="200" src="https://d33wubrfki0l68.cloudfront.net/1c17b3053b29646cdddc53965186a02179b59842/3ead0/img/cockroachlabs-logo-170.png"></a>
 
 <br /><br /><br />
-[![Latest Stable Version](https://poser.pugx.org/lapaygroup/doctrine-cockroachdb/v/stable)](https://packagist.org/packages/lapaygroup/doctrine-cockroachdb)
-[![Total Downloads](https://poser.pugx.org/lapaygroup/doctrine-cockroachdb/downloads)](https://packagist.org/packages/lapaygroup/doctrine-cockroachdb)
-[![License](https://poser.pugx.org/lapaygroup/doctrine-cockroachdb/license)](https://packagist.org/packages/lapaygroup/doctrine-cockroachdb)
+[![Latest Stable Version](https://poser.pugx.org/sweoggy/doctrine-cockroachdb/v/stable)](https://packagist.org/packages/sweoggy/doctrine-cockroachdb)
+[![Total Downloads](https://poser.pugx.org/sweoggy/doctrine-cockroachdb/downloads)](https://packagist.org/packages/sweoggy/doctrine-cockroachdb)
+[![License](https://poser.pugx.org/sweoggy/doctrine-cockroachdb/license)](https://packagist.org/packages/sweoggy/doctrine-cockroachdb)
 
 # CockroachDB Driver
 
@@ -21,8 +20,8 @@ doctrine:
         port: 26257
         host: localhost
         dbname: database_name
-        platform_service: LapayGroup\DoctrineCockroach\Platforms\CockroachPlatform
-        driver_class: LapayGroup\DoctrineCockroach\Driver\CockroachDriver
+        platform_service: SweOggy\DoctrineCockroach\Platforms\CockroachPlatform
+        driver_class: SweOggy\DoctrineCockroach\Driver\CockroachDriver
         # Only needed when using DBAL < 4.0 as DoctrineBundle defaults to the legacy factory 
         schema_manager_factory: doctrine.dbal.default_schema_manager_factory
         
@@ -32,9 +31,9 @@ doctrine:
         password: password
         port: 26257
         host: free-tier7.aws-eu-west-1.cockroachlabs.cloud
-        dbname: lapaygroup-test-869.defaultdb
-        platform_service: LapayGroup\DoctrineCockroach\Platforms\CockroachPlatform
-        driver_class: LapayGroup\DoctrineCockroach\Driver\CockroachDriver
+        dbname: sweoggy-test-869.defaultdb
+        platform_service: SweOggy\DoctrineCockroach\Platforms\CockroachPlatform
+        driver_class: SweOggy\DoctrineCockroach\Driver\CockroachDriver
         # Only needed when using DBAL < 4.0 as DoctrineBundle defaults to the legacy factory
         schema_manager_factory: doctrine.dbal.default_schema_manager_factory
 ```
@@ -45,27 +44,27 @@ Connection url style:
 doctrine:
     dbal:
         url: //root:@localhost:26257/database_name
-        platform_service: LapayGroup\DoctrineCockroach\Platforms\CockroachPlatform
-        driver_class: LapayGroup\DoctrineCockroach\Driver\CockroachDriver
+        platform_service: SweOggy\DoctrineCockroach\Platforms\CockroachPlatform
+        driver_class: SweOggy\DoctrineCockroach\Driver\CockroachDriver
         schema_manager_factory: doctrine.dbal.default_schema_manager_factory
         
     # Serverless example    
     dbal:
-        url: '//wildtuna:password@free-tier7.aws-eu-west-1.cockroachlabs.cloud:26257/lapaygroup-test-869.defaultdb'
-        platform_service: LapayGroup\DoctrineCockroach\Platforms\CockroachPlatform
-        driver_class: LapayGroup\DoctrineCockroach\Driver\CockroachDriver
+        url: '//wildtuna:password@free-tier7.aws-eu-west-1.cockroachlabs.cloud:26257/sweoggy-test-869.defaultdb'
+        platform_service: SweOggy\DoctrineCockroach\Platforms\CockroachPlatform
+        driver_class: SweOggy\DoctrineCockroach\Driver\CockroachDriver
         schema_manager_factory: doctrine.dbal.default_schema_manager_factory
 ```
 
 ```yaml
 # services.yaml
 services:
-  LapayGroup\DoctrineCockroach\Platforms\CockroachPlatform:
+  SweOggy\DoctrineCockroach\Platforms\CockroachPlatform:
     autowire: true
 
-  LapayGroup\DoctrineCockroach\Driver\CockroachDriver:
+  SweOggy\DoctrineCockroach\Driver\CockroachDriver:
     autowire: true
 
-  LapayGroup\DoctrineCockroach\Schema\CockroachSchemaManager:
+  SweOggy\DoctrineCockroach\Schema\CockroachSchemaManager:
     autowire: true
 ```

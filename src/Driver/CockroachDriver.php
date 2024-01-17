@@ -1,6 +1,6 @@
 <?php
 
-namespace LapayGroup\DoctrineCockroach\Driver;
+namespace SweOggy\DoctrineCockroach\Driver;
 
 use Doctrine\DBAL;
 use Doctrine\DBAL\Driver\PDO\Connection;
@@ -8,8 +8,8 @@ use Doctrine\DBAL\Driver\AbstractPostgreSQLDriver;
 use Doctrine\DBAL\Driver\PDO\Exception;
 use Doctrine\DBAL\Platforms\AbstractPlatform;
 use Doctrine\Deprecations\Deprecation;
-use LapayGroup\DoctrineCockroach\Platforms\CockroachPlatform;
-use LapayGroup\DoctrineCockroach\Schema\CockroachSchemaManager;
+use SweOggy\DoctrineCockroach\Platforms\CockroachPlatform;
+use SweOggy\DoctrineCockroach\Schema\CockroachSchemaManager;
 use PDO;
 use PDOException;
 use SensitiveParameter;

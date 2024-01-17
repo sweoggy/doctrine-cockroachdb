@@ -1,13 +1,13 @@
 {
-  "name": "lapaygroup/doctrine-cockroachdb",
+  "name": "sweoggy/doctrine-cockroachdb",
   "type": "library",
   "description": "Doctrine CockroachDB Driver (Symfony supports)",
   "keywords": ["pdo_pgsql","pdo","cockroach","cockroachdb","doctrine","doctrine-cockroachdb"],
   "license": "MIT",
   "minimum-stability": "stable",
   "support": {
-    "issues": "https://github.com/lapaygroup/doctrine-cockroachdb/issues",
-    "source": "https://github.com/lapaygroup/doctrine-cockroachdb"
+    "issues": "https://github.com/sweoggy/doctrine-cockroachdb/issues",
+    "source": "https://github.com/sweoggy/doctrine-cockroachdb"
   },
   "authors": [
     {
@@ -30,10 +30,10 @@
   },
   "autoload": {
     "psr-0": {
-      "LapayGroup\\DoctrineCockroach": "src/"
+      "SweOggy\\DoctrineCockroach": "src/"
     },
     "psr-4": {
-      "LapayGroup\\DoctrineCockroach\\": "src/"
+      "SweOggy\\DoctrineCockroach\\": "src/"
     }
   },
   "require-dev": {

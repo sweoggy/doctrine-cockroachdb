@@ -1,13 +1,13 @@
 <?php
 
-namespace LapayGroup\DoctrineCockroach\Platforms;
+namespace SweOggy\DoctrineCockroach\Platforms;
 
 use Doctrine\DBAL\Connection;
 use Doctrine\DBAL\Platforms\PostgreSQLPlatform;
 use Doctrine\DBAL\Schema\ForeignKeyConstraint;
 use Doctrine\DBAL\Schema\PostgreSQLSchemaManager;
 use Doctrine\DBAL\Types\Types;
-use LapayGroup\DoctrineCockroach\Schema\CockroachSchemaManager;
+use SweOggy\DoctrineCockroach\Schema\CockroachSchemaManager;
 
 class CockroachPlatform extends PostgreSQLPlatform
 {
